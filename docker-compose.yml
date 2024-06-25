@@ -1,0 +1,7 @@
+services:
+  telegram-bot:
+    build: .
+    environment:
+      - TELEGRAM_BOT_TOKEN=your_telegram_bot_token
+      - GITHUB_CHECK_INTERVAL=60
+    restart: unless-stopped
