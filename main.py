@@ -68,11 +68,16 @@ notification_titles = {
 }
 
 
+def escape_markdown_v2(text):
+    escape_chars = r"_*[]()~`>#+-=|{}.!"
+    return "".join(f"\\{char}" if char in escape_chars else char for char in text)
+
+
 def format_notification_message(notif):
     emoji = notification_emojis.get(notif["reason"], "")
     notification_title = notification_titles.get(notif["reason"], "")
-    repo_name = notif["repository"]["full_name"]
-    subject_title = notif["subject"]["title"]
+    repo_name = escape_markdown_v2(notif["repository"]["full_name"])
+    subject_title = escape_markdown_v2(notif["subject"]["title"])
     subject_url = notif["subject"]["url"]
     thread_id = notif["id"]
     repo_url = notif["repository"]["html_url"]
